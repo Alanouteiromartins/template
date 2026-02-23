@@ -1,0 +1,82 @@
+<div class="login-container">
+    <div class="login-left">
+        <div class="image-overlay">
+            <div class="left-content">
+                <h1 class="brand-title">Gestão Empresarial</h1>
+                <p class="brand-subtitle">Impulsione o futuro do seu negócio</p>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Company. Todos os direitos reservados.
+            </div>
+        </div>
+    </div>
+    <div class="login-right">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <div class="logo-box">
+                    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                <h2>Bem-vindo(a) de volta!</h2>
+                <p>Por favor, insira seus dados para acessar o sistema.</p>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+
+                @if (errorMessage()) {
+                <div class="error-alert">
+                    {{ errorMessage() }}
+                </div>
+                }
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" formControlName="email" placeholder="seu@email.com"
+                        [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" />
+                </div>
+
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="password">Senha</label>
+                        <a href="javascript:void(0)" class="forgot-link">Esqueceu a senha?</a>
+                    </div>
+                    <div class="password-input-wrapper">
+                        <input [type]="showPassword() ? 'text' : 'password'" id="password" formControlName="password"
+                            placeholder="Sua senha secreta"
+                            [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" />
+
+                        <button type="button" class="eye-toggle" (click)="togglePasswordVisibility()">
+                            @if (showPassword()) {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-eye-off">
+                                <path
+                                    d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+                                <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+                                <path
+                                    d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+                                <path d="m2 2 20 20" />
+                            </svg>
+                            } @else {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-eye">
+                                <path
+                                    d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            }
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">
+                    Entrar no Sistema
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+@if (showLayout()) {
+<app-sidebar />
+<main class="main-content">
+    <app-header />
+    <div class="page-content">
+        <router-outlet />
+    </div>
+</main>
+} @else {
+<router-outlet />
+}

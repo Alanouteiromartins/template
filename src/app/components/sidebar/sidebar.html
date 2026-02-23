@@ -1,0 +1,86 @@
+<aside class="sidebar" [class.expanded]="isExpanded()" [class.mobile-open]="isMobileOpen()">
+    <div class="sidebar-header">
+        <div class="logo-container">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                fill="none" stroke="#2D68FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
+            <span class="logo-text">Company</span>
+        </div>
+        <button class="pin-toggle" (click)="togglePin()">
+            @if (isPinned()) {
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v8" />
+                <path d="M8 12h8" />
+            </svg>
+            } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M8 12h8" />
+            </svg>
+            }
+        </button>
+    </div>
+
+    <nav class="sidebar-nav">
+        <ul>
+            <li>
+                <a routerLink="/menu1" routerLinkActive="active" (click)="isMobileOpen.set(false)">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1" />
+                        <rect width="7" height="5" x="14" y="3" rx="1" />
+                        <rect width="7" height="9" x="14" y="12" rx="1" />
+                        <rect width="7" height="5" x="3" y="16" rx="1" />
+                    </svg>
+                    <span class="menu-text">Menu 1</span>
+                </a>
+            </li>
+
+            <li class="has-submenu" [class.open]="isMenu2Open()" routerLinkActive="active">
+                <div class="menu-item-button" (click)="toggleMenu2()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span class="menu-text">Menu 2</span>
+                    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
+                </div>
+
+                <div class="submenu">
+                    <ul>
+                        <li>
+                            <a routerLink="/menu2/submenu2" routerLinkActive="active" (click)="isMobileOpen.set(false)">
+                                <span class="submenu-dot"></span>
+                                <span class="menu-text">Submenu 1</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/menu2/submenu1" routerLinkActive="active" (click)="isMobileOpen.set(false)">
+                                <span class="submenu-dot"></span>
+                                <span class="menu-text">Submenu 2</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<!-- Overlay for mobile when sidebar is open -->
+@if (isMobileOpen()) {
+<div class="sidebar-overlay" (click)="toggleMobileMenu()"></div>
+}

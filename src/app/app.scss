@@ -1,0 +1,35 @@
+:host {
+    display: block;
+    min-height: 100vh;
+    background-color: #e8eaec; // Light background for content area
+    overflow-x: hidden;
+}
+
+.main-content {
+    min-height: 100vh;
+    padding-left: var(--sidebar-width-collapsed, 80px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 768px) {
+        padding-left: 0; // Sidebar is hidden on mobile
+    }
+}
+
+.page-content {
+    padding: 24px;
+    flex: 1;
+}
+
+@media (min-width: 769px) {
+    app-sidebar.sidebar-is-expanded+.main-content {
+        padding-left: var(--sidebar-width-expanded, 260px);
+    }
+}
+
+@media (max-width: 768px) {
+    app-sidebar.sidebar-mobile-open+.main-content {
+        transform: translateX(var(--sidebar-width-expanded, 260px));
+    }
+}

@@ -1,0 +1,167 @@
+:host {
+    display: block;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.app-header {
+    height: 70px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    position: relative; // crucial for absolute positioning 
+}
+
+.header-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+// Icon Button Styling (e.g., Notifications)
+.icon-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    transition: all 0.2s ease;
+    position: relative;
+
+    &:hover {
+        background-color: #f1f5f9;
+        color: #0f172a;
+    }
+
+    .badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        background-color: #ef4444; // Red badge
+        color: #fff;
+        font-size: 0.65rem;
+        font-weight: 700;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #FFFFFF;
+    }
+}
+
+// Profile trigger
+.profile-container {
+    position: relative;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+
+    &:hover,
+    &.active {
+        background-color: #f1f5f9;
+    }
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #e2e8f0;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @media (max-width: 640px) {
+            display: none; // Hide name/role on mobile, show only avatar
+        }
+    }
+
+    .user-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #1e293b;
+        line-height: 1.2;
+    }
+
+    .user-role {
+        font-size: 0.75rem;
+        color: #64748b;
+    }
+
+    .chevron {
+        color: #94a3b8;
+        transition: transform 0.3s ease;
+        margin-left: 4px;
+
+        &.rotated {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 640px) {
+            display: none;
+        }
+    }
+}
+
+// Mobile View specific rules
+.mobile-view {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-view {
+        display: none !important;
+    }
+
+    .mobile-view {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .mobile-logo-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #251dc2;
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #a5b4fc, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}

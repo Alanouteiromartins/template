@@ -1,0 +1,139 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+            <h2>
+                @switch (editType()) {
+                @case ('avatar') {
+                Editar Foto e Nome
+                }
+                @case ('info') {
+                Editar Dados Pessoais
+                }
+                @case ('address') {
+                Editar Endereço
+                }
+                }
+            </h2>
+            <button class="close-btn" (click)="onClose()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            @if (editType() === 'avatar') {
+            <div class="avatar-editor">
+                <div class="current-avatar-preview">
+                    <img [src]="selectedAvatarUrl" alt="Avatar Preview" class="preview-img">
+                </div>
+
+                <div class="avatar-options">
+                    <h4>Ou escolha um modelo rápido:</h4>
+                    <div class="options-grid">
+                        @for (avatar of preselectedAvatars; track avatar) {
+                        <img [src]="avatar" class="option-img" [class.selected]="avatar === selectedAvatarUrl"
+                            (click)="onAvatarSelect(avatar)">
+                        }
+                    </div>
+                </div>
+
+                <div class="upload-section">
+                    <h4>Ou faça upload:</h4>
+                    <input type="file" id="avatarUpload" accept="image/png, image/jpeg" class="file-input">
+                    <label for="avatarUpload" class="file-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Escolher Arquivo
+                    </label>
+                </div>
+            </div>
+            }
+
+            @if (editType() === 'info') {
+            <form [formGroup]="editForm" class="edit-form" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" formControlName="name" class="form-control"
+                        [class.is-invalid]="editForm.get('name')?.invalid && editForm.get('name')?.touched">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="email" formControlName="email" class="form-control"
+                            [class.is-invalid]="editForm.get('email')?.invalid && editForm.get('email')?.touched">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="text" formControlName="phone" class="form-control" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" formControlName="cpf" class="form-control" placeholder="000.000.000-00">
+                    </div>
+                    <div class="form-group">
+                        <label>Função Principal</label>
+                        <input type="text" formControlName="role" class="form-control">
+                    </div>
+                </div>
+            </form>
+            }
+
+            @if (editType() === 'address') {
+            <form [formGroup]="editForm" class="edit-form" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Logradouro / Rua</label>
+                        <input type="text" formControlName="street" class="form-control">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Número</label>
+                        <input type="text" formControlName="number" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Bairro</label>
+                        <input type="text" formControlName="neighborhood" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>CEP</label>
+                        <input type="text" formControlName="cep" class="form-control" placeholder="00000-000">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Cidade</label>
+                        <input type="text" formControlName="city" class="form-control">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>UF</label>
+                        <input type="text" formControlName="state" class="form-control" maxlength="2"
+                            style="text-transform: uppercase;">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>País</label>
+                        <input type="text" formControlName="country" class="form-control">
+                    </div>
+                </div>
+            </form>
+            }
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
+            <button class="btn btn-primary" (click)="onSubmit()">Salvar e Voltar</button>
+        </div>
+    </div>
+</div>

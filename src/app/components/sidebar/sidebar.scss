@@ -1,0 +1,362 @@
+// CSS Variables
+:host {
+    --sidebar-width-collapsed: 80px;
+    --sidebar-width-expanded: 260px;
+    --sidebar-bg: #FFFFFF; // Professional dark theme
+    --sidebar-text: #324054;
+    --sidebar-text-hover: #2D68FE;
+    --sidebar-active-bg: #EFF6FF;
+    --sidebar-active-text: #2D68FE;
+    --sidebar-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Header
+    --header-height: 80px;
+
+    // Default icon and text sizes
+    --icon-size: 20px;
+}
+
+// Mobile Toggle Button
+.mobile-toggle {
+    display: none; // Hidden on desktop
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text-hover);
+    border: none;
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        background: #EFF6FF;
+    }
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
+}
+
+// Sidebar Base
+.sidebar {
+    width: var(--sidebar-width-collapsed);
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    display: flex;
+    flex-direction: column;
+    transition: var(--sidebar-transition);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    // Custom Scrollbar for light theme
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+
+    &.expanded {
+        width: var(--sidebar-width-expanded);
+
+        .pin-toggle {
+            opacity: 1;
+        }
+
+        .sidebar-header {
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        width: var(--sidebar-width-expanded);
+        transform: translateX(-100%);
+
+        .pin-toggle {
+            display: none; // No pinning on mobile
+        }
+
+        .sidebar-header {
+            justify-content: flex-start;
+            padding: 0 20px;
+        }
+
+        &.mobile-open {
+            transform: translateX(0);
+        }
+    }
+
+    // High specificity override to guarantee text and icons are visible when open
+    &.expanded,
+    &.mobile-open {
+
+        .sidebar-header .logo-text,
+        .sidebar-nav .menu-text,
+        .sidebar-nav .chevron-icon {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+// Overlay
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    backdrop-filter: blur(2px);
+
+    @media (max-width: 768px) {
+        display: block; // visible when toggled, handled by @if in html
+    }
+}
+
+// Header Area
+.sidebar-header {
+    height: var(--header-height);
+    min-height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 24px;
+    transition: var(--sidebar-transition);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--sidebar-text-hover);
+
+        img {
+            display: none; // hiding the old image for the SVG logo
+        }
+    }
+
+    .logo-icon {
+        color: #251dc2; // Indigo brand color
+        flex-shrink: 0;
+    }
+
+    .logo-text {
+        font-size: 1.25rem;
+        font-weight: 700;
+        opacity: 0;
+        visibility: hidden;
+        white-space: nowrap;
+        transition: var(--sidebar-transition);
+        background: linear-gradient(90deg, #a5b4fc, #818cf8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .pin-toggle {
+        background: transparent;
+        border: none;
+        color: var(--sidebar-text);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        opacity: 0;
+        transition: var(--sidebar-transition);
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--sidebar-text-hover);
+        }
+    }
+}
+
+// Navigation
+.sidebar-nav {
+    padding: 20px 0;
+    flex: 1;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    li {
+        display: flex;
+        flex-direction: column;
+    }
+
+    a,
+    .menu-item-button {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        margin: 0 12px;
+        border-radius: 8px;
+        color: var(--sidebar-text);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        background: transparent;
+        font-family: inherit;
+        font-size: 1rem;
+
+        &:hover {
+            color: var(--sidebar-text-hover);
+            background: rgba(0, 0, 0, 0.03);
+        }
+    }
+
+    li.active>a,
+    li.active>.menu-item-button,
+    a.active,
+    .menu-item-button.active {
+        color: var(--sidebar-active-text);
+        background: var(--sidebar-active-bg);
+        font-weight: 500;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            width: 4px;
+            background: #2D68FE; // Updated to match user's new active color
+            border-radius: 0 4px 4px 0;
+            transition: var(--sidebar-transition);
+        }
+    }
+
+    .menu-icon {
+        flex-shrink: 0;
+        width: var(--icon-size);
+        height: var(--icon-size);
+        transition: color 0.2s ease;
+    }
+
+    .menu-text {
+        margin-left: 16px;
+        font-size: 0.95rem;
+        opacity: 0;
+        visibility: hidden;
+        white-space: nowrap;
+        transition: var(--sidebar-transition);
+        flex: 1;
+        text-align: left;
+    }
+
+    .chevron-icon {
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    // Submenu styles
+    .has-submenu {
+        &.open {
+            .chevron-icon {
+                transform: rotate(180deg);
+            }
+
+
+
+            // Only expand the submenu physically if the entire sidebar is expanded or mobile-open
+            .sidebar.expanded &,
+            .sidebar.mobile-open & {
+                .submenu {
+                    grid-template-rows: 1fr;
+                    opacity: 1;
+                    margin-top: 4px;
+                }
+            }
+        }
+    }
+
+    .submenu {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transition: grid-template-rows 0.3s ease-in-out, opacity 0.3s ease-in-out, margin 0.3s ease;
+
+        ul {
+            overflow: hidden;
+            padding-left: 10px; // indented line
+        }
+
+        li {
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 30px; // align with parents icon
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                background: rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        a {
+            padding: 10px 20px 10px 42px;
+            font-size: 0.9rem;
+
+            &:hover .submenu-dot {
+                background: #2D68FE;
+                border-color: #2D68FE;
+            }
+
+            &.active .submenu-dot {
+                background: #2D68FE;
+                border-color: #2D68FE;
+                box-shadow: 0 0 0 2px rgba(45, 104, 254, 0.3);
+            }
+        }
+
+        .submenu-dot {
+            position: absolute;
+            left: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            transition: var(--sidebar-transition);
+        }
+    }
+}
