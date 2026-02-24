@@ -1,0 +1,26 @@
+<!-- breadcrumb.component.html -->
+@if (items.length > 0) {
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    @for (item of items; track item; let last = $last) {
+    <li class="breadcrumb__item">
+      @if (!last) {
+      <a class="breadcrumb__link" [routerLink]="item.url">
+        {{ item.label }}
+      </a>
+      <span class="breadcrumb__sep" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-top: -2px;" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </span>
+      } @else {
+      <span class="breadcrumb__current" aria-current="page">
+        {{ item.label }}
+      </span>
+      }
+    </li>
+    }
+  </ol>
+</nav>
+}

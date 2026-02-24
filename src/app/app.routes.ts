@@ -12,9 +12,9 @@ export const routes: Routes = [
     { path: 'menu1', component: Menu1, title: 'Menu 1', canActivate: [authGuard] },
     {
         path: 'menu2', component: Menu2, title: 'Menu 2', canActivate: [authGuard], children: [
-            { path: 'submenu1', component: Submenu1, title: 'Submenu 1' }
-        ]
+            { path: 'submenu1', component: Submenu1, title: 'Submenu 1', data: {breadcrumb: 'submenu1'} }
+        ], data: {breadcrumb: 'menu2'}
     },
-    { path: 'perfil', component: Profile, title: 'Perfil', canActivate: [authGuard] },
+    { path: 'perfil', component: Profile, title: 'Perfil', canActivate: [authGuard], data: {breadcrumb: 'perfil'} },
     { path: '**', redirectTo: 'menu1' }
 ];

@@ -7,3 +7,23 @@
 body {
     font-family: 'Poppins', sans-serif;
 }
+
+.page {
+    padding: 18px;
+    max-width: 1920px;
+    margin: 0 auto;
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+
+        h1 {
+            font-size: 1.75rem;
+            color: #1e293b;
+            margin: 0;
+            font-weight: 700;
+        }
+    }
+}

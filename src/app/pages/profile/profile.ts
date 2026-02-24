@@ -1,12 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { ProfileService, UserProfile } from '../../services/profile.service';
 import { ProfileEditModal } from '../../components/profile-edit-modal/profile-edit-modal';
+import { Breadcrumb } from '../../components/breadcrumb/breadcrumb';
 
 type EditType = 'avatar' | 'info' | 'address' | null;
 
 @Component({
   selector: 'app-profile',
-  imports: [ProfileEditModal],
+  imports: [ProfileEditModal, Breadcrumb],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
