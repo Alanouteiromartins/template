@@ -5,6 +5,7 @@ import { Submenu1 } from './pages/menu2/submenu1/submenu1';
 import { authGuard } from './guards/auth.guard';
 import { Login } from './pages/login/login';
 import { Profile } from './pages/profile/profile';
+import { Configuration } from './pages/configuration/configuration';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'menu1', pathMatch: 'full' },
@@ -16,5 +17,6 @@ export const routes: Routes = [
         ], data: {breadcrumb: 'menu2'}
     },
     { path: 'perfil', component: Profile, title: 'Perfil', canActivate: [authGuard], data: {breadcrumb: 'perfil'} },
+    { path: 'config', component: Configuration, title: 'Configurações', canActivate: [authGuard], data: {breadcrumb: 'configurações'} },
     { path: '**', redirectTo: 'menu1' }
 ];

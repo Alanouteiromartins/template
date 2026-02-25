@@ -24,6 +24,13 @@ export class ProfileDropdown {
         }, 300)
     }
 
+    config() {
+        setTimeout(() => {
+            this.router.navigate(['/config']);
+            this.closeDropdown.emit();
+        }, 300)
+    }
+
     logout() {
         setTimeout(() => {
             this.router.navigate(['/login']);
