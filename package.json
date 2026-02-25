@@ -6,7 +6,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "serve -s dist/template -l ${PORT:-3000}",
+    "start": "serve -s dist/template/browser -l ${PORT:-3000}",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
